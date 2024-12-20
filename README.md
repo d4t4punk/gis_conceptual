@@ -18,6 +18,8 @@ As of 2024.12.20 this functionality is currently under development.
 
 # Lambda Functions
 
-## lf-gis-blob-to-raster-trigger
-
 ## lf-gis-daily-precip-temp-raster-load
+This python function reads daily rasters from NOAA source and places those files into an S3 bucket as depicted on the diagram.
+
+## lf-gis-blob-to-raster-trigger
+As new CONUS rasters are loaded into S3, the file drop triggers this lambda function to load the data into PostgreSQL.  As a new bytea raw raster is loaded to postgresql, the insert causes another trigger to fire and convert the bytea raw raster into postgresql raster data type in a new table, sliced into 50x50 tiles for more efficient processing.
